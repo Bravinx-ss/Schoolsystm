@@ -27,8 +27,30 @@ app.use("/teacher", teacher);
 const parent = require("./routes/parentRoute");
 app.use("/parent", parent);
 
+// attendance route
+const attendance = require ("./routes/attendanceRouter")
+app.use("/attendance", attendance)
+
+// result route
+const result = require("./routes/resultRoute");
+app.use("/result", result);
+
+// student route
+const student = require ("./routes/studentRoute")
+app.use("/student", student)
+
 const assignments = require("./routes/assigmentRouter");
 app.use("/assignments", assignments);
+
+// fee route
+const fee = require("./routes/feeRoute");
+// app.use("/fee",fee)
+app.use(express.json()); // VERY IMPORTANT
+app.use("/fee", fee);
+
+// admin dashboard route
+const admin = require("./routes/adminRouter")
+app.use("/admin",admin)
 
 // mongoose.connection to the db
 mongoose
