@@ -1,0 +1,15 @@
+const express = require("express");
+const router = express.Router();
+const announcementController = require("../controllers/announcementController");
+const { auth, authorizeRoles } = require("../middleware/auth");
+
+// Only admins can create, update, and delete
+router.post("/", auth,authorizeRoles("admin"),announcementController.createAnnouncement);
+router.put("/:id", auth, authorizeRoles("admin"), announcementController.updateAnnouncement);
+router.delete("/:id", auth, authorizeRoles("admin"), announcementController.deleteAnnouncement);
+
+// Everyone with an account (admin, teacher, parent, etc.) can view
+router.get("/", auth, announcementController.getAllAnnouncements);
+router.get("/:id", auth, announcementController.getAnnouncementById);
+
+module.exports = router;

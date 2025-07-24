@@ -82,25 +82,42 @@ exports.getAssignmentById= async(req,res)=>{
 }
 
 // update assigment
-exports.updateAssignment= async(req,res)=>{
-    try {
-        // find the asssignment by first
+exports.updateAssignment = async (req, res) => {
+  try {
+    // Find the assignment and update it
+    const updatedAssignment = await Assignment.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
 
-        const Assignments= await Assignment.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            {new:true}
-        )
+    if (!updatedAssignment) {
+      return res.status(404).json({ message: "Assignment not found" });
+    }
 
-        if (!updateAssignment) 
-            return res.status(404).json({message:" Assignment not found"})
-        res.status(201).json({message:"Assignment Updated Successfully",updateAssignment}) 
-        } catch (error) {
-            res.status(500).json({
-                message:error.message
-                })
-}
-}
+    res.status(200).json({
+      message: "Assignment Updated Successfully",
+      data: updatedAssignment,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.deleteAssignment = async (req, res) => {
+  try {
+    const deleted = await Assignment.findByIdAndDelete(req.params.id);
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Assignment not found" });
+    }
+
+    res.status(200).json({ message: "Assignment deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 // geteachers assignment
 // included classroom and teacher info

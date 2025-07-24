@@ -48,6 +48,13 @@ const fee = require("./routes/feeRoute");
 app.use(express.json()); // VERY IMPORTANT
 app.use("/fee", fee);
 
+// announcement Route
+const announcement = require("./routes/announcementRoute");
+app.use("/announcement", announcement);
+
+// teacher dashboard route
+const teacherDashboard = require("./routes/teacherDashRoute");
+app.use("/teacherDash", teacherDashboard);
 // admin dashboard route
 const admin = require("./routes/adminRouter")
 app.use("/admin",admin)

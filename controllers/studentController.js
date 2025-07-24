@@ -87,15 +87,26 @@ exports.getAllStudents = async (req, res) => {
 // Get single student
 exports.getStudentById = async (req, res) => {
   try {
-    const student = await Student.findById(req.params.id)
+    const { id } = req.params;
+    console.log("Fetching student with ID:", id);
+
+    const student = await Student.findById(id)
       .populate("classroom")
       .populate("parent");
-    if (!student) return res.status(404).json({ message: "Student not found" });
+
+    if (!student) {
+      console.log("Student not found for ID:", id);
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    console.log("Student found:", student);
     res.status(200).json(student);
   } catch (error) {
+    console.error("Error in getStudentById:", error.message);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Update student
 exports.updateStudent = async (req, res) => {

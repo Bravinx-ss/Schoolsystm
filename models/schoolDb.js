@@ -149,16 +149,16 @@ const attendanceSchema = new Schema(
 //   { timestamps: true }
 // );
 
-// //  ANNOUNCEMENT SCHEMA 
-// const announcementSchema = new Schema({
-//     title: { type: String, required: true },
-//     message: { type: String, required: true },
-//     target: {type: String,enum: ["All", "Teachers", "Parents", "Students", "Classroom"],default: "All",},
-//     classroom: {type: mongoose.Schema.Types.ObjectId,ref: "Classroom",default: null,},
-//     postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-//   },
-//   { timestamps: true }
-// );
+//  ANNOUNCEMENT SCHEMA 
+const announcementSchema = new Schema({
+    title: { type: String, required: true },
+    message: { type: String, required: true },
+    target: {type: String,enum: ["All", "Teachers", "Parents", "Students", "Classroom"],default: "All",},
+    classroom: {type: mongoose.Schema.Types.ObjectId,ref: "Classroom",default: null,},
+    postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  },
+  { timestamps: true }
+);
 
 
 // ===================== SUBJECT SCHEMA (Optional) =====================
@@ -180,7 +180,7 @@ const Result = mongoose.model("Result", resultSchema);
 const Fee = mongoose.model("Fee", feeSchema);
 const Attendance = mongoose.model("Attendance", attendanceSchema);
 // const Timetable = mongoose.model("Timetable", timetableSchema);
-// const Announcement = mongoose.model("Announcement", announcementSchema);
+const Announcement = mongoose.model("Announcement", announcementSchema);
 const Subject = mongoose.model("Subject", subjectSchema);
 
-module.exports = {User,Teacher,Parent,Classroom,Student,Assignment,Result,Fee,Attendance,};
+module.exports = {User,Teacher,Parent,Classroom,Student,Assignment,Result,Fee,Attendance,Announcement,};
