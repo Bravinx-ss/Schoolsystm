@@ -69,14 +69,20 @@ exports.updateParent = async (req,res) =>{
     }
 }
 
-exports.deleteParent = async (req,res) =>{
-    try {
-        const deletedParent = await Parent.findByIdAndDelete(req.params.id)
-        if(!deletedParent) return res.status(404).json({message:"Parent Not Found"})
-        //delete also the associated user account
-        await User.findByIdAndDelete({parent:req.params.id})
-        res.status(200).json({message:"Parent account deleted successfully"})
-    } catch (error) {
-        res.status(500).json({message:error.message})
+exports.deleteParent = async (req, res) => {
+  try {
+    const deletedParent = await Parent.findByIdAndDelete(req.params.id);
+    if (!deletedParent) {
+      return res.status(404).json({ message: "Parent Not Found" });
     }
-}
+
+    // delete also the associated user account
+    await User.findOneAndDelete({ parent: req.params.id });
+
+    res
+      .status(200)
+      .json({ message: "Parent account and linked user deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

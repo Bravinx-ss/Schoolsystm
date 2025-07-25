@@ -16,7 +16,7 @@ exports.addTeacher = async (req, res) => {
             const savedTeacher= await newTeacher.save()
              
             // we create a corresponding 
-            const defaultPassword= "teacher11234"
+            const defaultPassword= "Teacher1234"
             const password= await bcrypt.hash(defaultPassword,10)
             const newUser= new User({
                 name:savedTeacher.name,
@@ -26,7 +26,7 @@ exports.addTeacher = async (req, res) => {
                 teacher:savedTeacher._id
             })
             await newUser.save()
-            res.status(201).json({message:`Teacher  ${savedTeacher.name},registered succesfully`,newUser} )
+            res.status(201).json({message:`Teacher  ${savedTeacher.name},registered successfully`,newUser} )
     } catch (error) {
         res.status(500).json({message:error.message})
     }
@@ -58,14 +58,9 @@ exports.getTeacherById= async (req, res) => {
 
 exports.updateTeacher = async (req, res) => {
   try {
-    const userId = req.params.id
     const teacherId = req.params.id;
-
     const { name, email, password, ...otherFields } = req.body;
-    const existUser= await User.findById(userId);
-    if (!existUser) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+
     // 1. Update teacher info
     const updatedTeacher = await Teacher.findByIdAndUpdate(
       teacherId,
@@ -74,13 +69,13 @@ exports.updateTeacher = async (req, res) => {
     );
 
     if (!updatedTeacher) {
-      return res.status(404).json({ message: 'Teacher not found' });
+      return res.status(404).json({ message: "Teacher not found" });
     }
 
     // 2. Find and update the corresponding user
     const user = await User.findOne({ teacher: teacherId });
     if (!user) {
-      return res.status(404).json({ message: 'Linked user not found' });
+      return res.status(404).json({ message: "Linked user not found" });
     }
 
     // 3. Update user fields
@@ -95,19 +90,20 @@ exports.updateTeacher = async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      message: 'Teacher and linked user updated successfully',
+      message: "Teacher and linked user updated successfully",
       updatedTeacher,
       updatedUser: {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role
-      }
+        role: user.role,
+      },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-}
+};
+
 
 // delete classroom
 

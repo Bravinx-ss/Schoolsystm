@@ -55,6 +55,11 @@ app.use("/announcement", announcement);
 // teacher dashboard route
 const teacherDashboard = require("./routes/teacherDashRoute");
 app.use("/teacherDash", teacherDashboard);
+
+// parent dash
+const parentDash = require ("./routes/parentDash")
+app.use("/parentDash", parentDash)
+
 // admin dashboard route
 const admin = require("./routes/adminRouter")
 app.use("/admin",admin)
