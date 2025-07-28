@@ -161,12 +161,12 @@ const announcementSchema = new Schema({
 );
 
 
-// ===================== SUBJECT SCHEMA (Optional) =====================
-const subjectSchema = new Schema({
-    name: { type: String, required: true, unique: true },
-    code: { type: String, required: true },
-    teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', default: null }
-});
+// // ===================== SUBJECT SCHEMA (Optional) =====================
+// const subjectSchema = new Schema({
+//     name: { type: String, required: true, unique: true },
+//     code: { type: String, required: true },
+//     teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', default: null }
+// });
 
 
 //  MODEL EXPORTS 
@@ -181,6 +181,6 @@ const Fee = mongoose.model("Fee", feeSchema);
 const Attendance = mongoose.model("Attendance", attendanceSchema);
 // const Timetable = mongoose.model("Timetable", timetableSchema);
 const Announcement = mongoose.model("Announcement", announcementSchema);
-const Subject = mongoose.model("Subject", subjectSchema);
+// const Subject = mongoose.model("Subject", subjectSchema);
 
 module.exports = {User,Teacher,Parent,Classroom,Student,Assignment,Result,Fee,Attendance,Announcement,};
